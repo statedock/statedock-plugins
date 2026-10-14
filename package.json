@@ -4,14 +4,22 @@
   "private": true,
   "type": "module",
   "license": "MIT",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "validate": "node scripts/validate.mjs",
     "build": "node scripts/build.mjs",
     "pack": "node scripts/pack.mjs",
     "test": "node --test",
     "verify:codex": "node scripts/verify-codex.mjs",
-    "verify:endpoint": "node scripts/verify-endpoint.mjs"
+    "verify:endpoint": "node scripts/verify-endpoint.mjs",
+    "pack:zip": "node scripts/pack-zip.mjs",
+    "build:harness": "node scripts/build-harness.mjs",
+    "verify:harness": "node scripts/verify-harness.mjs"
   },
-  "devDependencies": { "ajv": "8.20.0", "yaml": "2.9.1" }
+  "devDependencies": {
+    "ajv": "8.20.0",
+    "yaml": "2.9.1"
+  }
 }

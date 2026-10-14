@@ -1,0 +1,7 @@
+- insert:
+    - id: statedock-skills
+      name: '@statedock/dsh-plugin'
+    # Keep the existing host connection and its credentials by default.
+    - id: statedock-remote-mcp
+      name: '@statedock/dsh-plugin/mcp'
+      disabled: true

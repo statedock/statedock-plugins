@@ -40,7 +40,7 @@ export async function validate(dir = join(root, 'core')) {
     const meta = parse(front[1]);
     if (meta.name !== name || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(meta.name) || meta.name.length > 64 || typeof meta.description !== 'string' || !meta.description || meta.description.length > 1024) throw new Error(`Invalid skill: ${name}`);
   }
-  const allowed = new Set(['plugin.json', 'mcp.json', 'LICENSE', 'README.md', ...names.map(name => `skills/${name}/SKILL.md`)]);
+  const allowed = new Set(['plugin.json', 'mcp.json', 'LICENSE', 'README.md', 'assets/logo.png', ...names.map(name => `skills/${name}/SKILL.md`)]);
   for (const path of await files(dir)) {
     if (!allowed.has(relative(dir, path))) throw new Error(`Unapproved package file: ${path}`);
     rejectSecrets(await readFile(path, 'utf8'), path);

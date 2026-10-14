@@ -3,8 +3,36 @@
   "name": "statedock",
   "version": "0.1.0",
   "description": "Plan, pick up and update shared project goals through StateDock Remote MCP.",
-  "author": { "name": "StateDock", "url": "https://statedock.dev" },
+  "author": {
+    "name": "StateDock",
+    "url": "https://statedock.dev"
+  },
   "homepage": "https://statedock.dev",
   "repository": "https://github.com/statedock/statedock-plugins",
-  "license": "MIT"
+  "license": "MIT",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "StateDock",
+        "shortDescription": "Keep task context across tools",
+        "longDescription": "Save deferred plans, restore project task context, and record progress or verified handoffs through StateDock Remote MCP. Built for people using AI coding tools across sessions. The plugin records state and restores context; it does not execute task code, launch agents, schedule work or orchestrate agents. A StateDock account and host authorization are required. READY pickup requires an assigned Agent Identity and explicit user authorization.",
+        "developerName": "StateDock",
+        "category": "Productivity",
+        "capabilities": [
+          "Save deferred plans",
+          "Restore task context",
+          "Record progress and handoffs"
+        ],
+        "websiteURL": "https://statedock.dev",
+        "supportURL": "https://github.com/statedock/statedock-plugins/issues",
+        "logo": "./assets/logo.png",
+        "composerIcon": "./assets/logo.png",
+        "defaultPrompt": [
+          "Save a deferred plan for this project without starting it.",
+          "Restore the context of an existing task without changing its status.",
+          "Record my verified results as a task handoff."
+        ]
+      }
+    }
+  }
 }

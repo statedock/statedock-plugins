@@ -1,16 +1,22 @@
 {
   "name": "statedock-plugins",
-  "owner": { "name": "StateDock" },
-  "metadata": { "description": "Shared StateDock task workflows for coding tools." },
-  "plugins": [{
-    "name": "statedock",
-    "source": "core",
-    "description": "Save plans, restore task context and record progress through StateDock Remote MCP.",
-    "version": "0.1.0",
-    "homepage": "https://statedock.dev",
-    "repository": "https://github.com/statedock/statedock-plugins",
-    "license": "MIT",
-    "logo": "assets/logo.png",
-    "category": "Productivity"
-  }]
+  "owner": {
+    "name": "StateDock"
+  },
+  "metadata": {
+    "description": "Shared StateDock task workflows for coding tools."
+  },
+  "plugins": [
+    {
+      "name": "statedock",
+      "source": "core",
+      "description": "Save plans, restore task context and record progress through StateDock Remote MCP.",
+      "version": "0.1.0",
+      "homepage": "https://statedock.dev",
+      "repository": "https://github.com/statedock/statedock-plugins",
+      "license": "MIT",
+      "logo": "core/assets/logo.png",
+      "category": "Productivity"
+    }
+  ]
 }

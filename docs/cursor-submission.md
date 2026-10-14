@@ -8,7 +8,7 @@ Prepared 2026-10-14. This is an application draft, not evidence of marketplace a
 - Organization handle: statedock
 - Repository: https://github.com/statedock/statedock-plugins
 - Website: https://statedock.dev
-- Logo URL: https://statedock.dev/logo.png (the same brand asset is committed as assets/logo.png)
+- Logo URL: https://statedock.dev/logo.png (the same brand asset is committed as core/assets/logo.png)
 - Contact email and owner: keep the publisher's existing form values; no personal contact data is committed here.
 
 Suggested description:

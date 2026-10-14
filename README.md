@@ -82,7 +82,7 @@ Never commit tokens or send them in chat. OAuth credentials stay in the host. Fo
 
 ## Cursor Marketplace application
 
-The root `.cursor-plugin/marketplace.json` exposes the same portable plugin in `core/` for repository discovery. A brand logo is committed under `assets/`. See [submission fields and remaining acceptance checks](docs/cursor-submission.md). The repository is prepared for a Cursor application; actual Cursor installation and marketplace approval are not yet verified.
+The root `.cursor-plugin/marketplace.json` exposes the same portable plugin in `core/` for repository discovery. A brand logo is committed under `core/assets/`. See [submission fields and remaining acceptance checks](docs/cursor-submission.md). The repository is prepared for a Cursor application; actual Cursor installation and marketplace approval are not yet verified.
 
 ## Platform status
 
@@ -91,10 +91,10 @@ The root `.cursor-plugin/marketplace.json` exposes the same portable plugin in `
 | Codex | Agent Plugins 1.0.0 + local marketplace | Isolated CLI installation, normal installed/enabled state, three Skills discovered; authenticated remote instance calls |
 | Cursor | Officially accepts Agent Plugins 1.0.0 | Format researched; installation and OAuth not tested |
 | Claude Code | Native plugin manifest and MCP configuration | Research only; adapter not implemented |
-| DeepSeek Harness | Cordis composition and native MCP client | Research only; adapter not implemented |
+| DeepSeek Harness 0.2.0-rc.2 | Native Cordis Bundle + shared Skills; optional native MCP | Actual isolated CLI installation, native Skill discovery and read-only Remote MCP bridge checks; desktop GUI/model acceptance pending |
 | OpenCode | Native MCP configuration and Skills; JS plugin only if needed | Research only; adapter not implemented |
 
-Portable format compatibility is not a guarantee of installation, authentication, or workflow behavior on every client. [Official sources and platform acceptance gates](docs/platforms.md) distinguish documented capabilities from actual tests. `adapters/` contains research notes, not usable native packages.
+Portable format compatibility is not a guarantee of installation, authentication, or workflow behavior on every client. [Official sources and platform acceptance gates](docs/platforms.md) distinguish documented capabilities from actual tests. The [DeepSeek Harness adapter](adapters/deepseek-harness/README.md) has build and verification instructions. Other adapter directories remain research notes.
 
 ## Develop and package
 
@@ -106,6 +106,7 @@ npm run validate
 npm test
 npm run build
 npm run pack
+npm run pack:zip
 ```
 
 Optional integration checks:
@@ -122,14 +123,14 @@ npm run verify:endpoint
 - `verify:codex` installs into a temporary Codex home and validates cached contents without changing your normal configuration or credentials.
 - `verify:endpoint` probes public OAuth discovery only; it does not exercise authenticated operations.
 
-Generated packages include two manifests, three Skills, LICENSE and README. Build dependencies, configuration templates, server code and credentials are excluded. These scripts never push, deploy or publish.
+Generated packages include two manifests, three Skills, the brand logo, LICENSE and README. `pack:zip` creates a ZIP with the plugin files at the archive root for OpenAI upload. Build dependencies, configuration templates, server code and credentials are excluded. These scripts never push, deploy or publish.
 
 ```text
 core/                 Shared portable manifests and Skills
 .agents/plugins/      Codex local marketplace
 .cursor-plugin/       Cursor repository marketplace
-assets/               Publisher brand logo
-adapters/             Platform research and acceptance gates
+core/assets/          Shared publisher brand logo
+adapters/             Harness Bundle sources and other platform research
 schemas/              Official Agent Plugins 1.0.0 schema snapshots
 templates/            Standalone secure connection examples
 scripts/              Validation, build, packaging and integration checks
@@ -138,6 +139,10 @@ docs/                 Installation, MCP contracts and verification evidence
 ```
 
 Edit `core/` once, then rebuild distributions. Do not maintain generated copies as separate sources. When updating an installed plugin, refresh/reinstall through your host and verify the cached version and Skill contents.
+
+## DeepSeek Harness
+
+Run `npm run build:harness` to produce the native `@statedock/dsh-plugin` tgz for the tested 0.2.0-rc.2 host. Default installation reuses an existing authenticated StateDock connection. The optional environment-token connection is disabled until explicitly enabled. See [installation and verification](adapters/deepseek-harness/README.md).
 
 ## Verification and next steps
 
