@@ -80,6 +80,10 @@ Then confirm the project UUID and its repository path. For READY pickup, the cre
 
 Never commit tokens or send them in chat. OAuth credentials stay in the host. For a separate standalone Codex connection, [configuration templates](templates/) show OAuth or a securely supplied environment variable. Avoid configuring duplicate StateDock connections; inspect each connection's instance information before use.
 
+## Cursor Marketplace application
+
+The root `.cursor-plugin/marketplace.json` exposes the same portable plugin in `core/` for repository discovery. A brand logo is committed under `assets/`. See [submission fields and remaining acceptance checks](docs/cursor-submission.md). The repository is prepared for a Cursor application; actual Cursor installation and marketplace approval are not yet verified.
+
 ## Platform status
 
 | Platform | Format / approach | Verified here |
@@ -123,6 +127,8 @@ Generated packages include two manifests, three Skills, LICENSE and README. Buil
 ```text
 core/                 Shared portable manifests and Skills
 .agents/plugins/      Codex local marketplace
+.cursor-plugin/       Cursor repository marketplace
+assets/               Publisher brand logo
 adapters/             Platform research and acceptance gates
 schemas/              Official Agent Plugins 1.0.0 schema snapshots
 templates/            Standalone secure connection examples
