@@ -1,0 +1,5 @@
+# Alternative to OAuth, for a standalone connection only.
+# Supply STATEDOCK_TOKEN securely in the host environment; never commit its value.
+[mcp_servers.statedock]
+url = "https://statedock.dev/mcp"
+bearer_token_env_var = "STATEDOCK_TOKEN"

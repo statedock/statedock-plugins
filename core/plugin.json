@@ -1,0 +1,10 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "statedock",
+  "version": "0.1.0",
+  "description": "Plan, pick up and update shared project goals through StateDock Remote MCP.",
+  "author": { "name": "StateDock", "url": "https://statedock.dev" },
+  "homepage": "https://statedock.dev",
+  "repository": "https://github.com/statedock/statedock-plugins",
+  "license": "MIT"
+}

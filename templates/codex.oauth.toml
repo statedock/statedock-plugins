@@ -1,0 +1,4 @@
+# Merge into your chosen Codex config; do not overwrite existing settings.
+# Do not configure this duplicate server if using the plugin-bundled connection.
+[mcp_servers.statedock]
+url = "https://statedock.dev/mcp"

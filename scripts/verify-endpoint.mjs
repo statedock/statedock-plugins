@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+const endpoint = 'https://statedock.dev/mcp';
+const response = await fetch(endpoint, { method: 'POST', redirect: 'error', signal: AbortSignal.timeout(15000), headers: { 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'initialize', params: { protocolVersion: '2025-03-26', capabilities: {}, clientInfo: { name: 'statedock-plugins-probe', version: '0.1.0' } } }) });
+assert.equal(response.status, 401);
+assert.match(response.headers.get('www-authenticate') || '', /oauth-protected-resource\/mcp/);
+const metadata = await fetch('https://statedock.dev/.well-known/oauth-protected-resource/mcp', { redirect: 'error', signal: AbortSignal.timeout(15000) });
+assert.equal(metadata.status, 200);
+const resource = await metadata.json();
+assert.equal(resource.resource, endpoint);
+const auth = await fetch('https://statedock.dev/.well-known/oauth-authorization-server', { redirect: 'error', signal: AbortSignal.timeout(15000) });
+assert.equal(auth.status, 200);
+const server = await auth.json();
+assert.equal(server.issuer, 'https://statedock.dev');
+assert.ok(server.code_challenge_methods_supported.includes('S256'));
+console.log('Remote endpoint, 401 OAuth challenge, resource identity and PKCE metadata verified. Authenticated tools/operations remain unverified.');

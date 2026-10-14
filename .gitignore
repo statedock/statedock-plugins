@@ -1,0 +1,11 @@
+node_modules/
+dist/
+artifacts/
+.env
+.env.*
+!.env.example
+*.local.*
+.DS_Store
+
+# Earlier local install copy; shared source lives in core/.
+/plugins/
