@@ -11,6 +11,9 @@ Official sources fetched/inspected on 2026-10-14; installation support must be v
 | [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | Cordis composition; built-in [MCP client](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/mcp/mcp-client/README.md) supports stdio and streamable-http | Implemented native 0.2.0-rc.2 Bundle; isolated CLI/Skills/remote bridge checks passed, everyday GUI/model acceptance pending |
 | [OpenCode plugins](https://docs.opencode.ai/docs/plugins/) | JS/TS modules and npm plugin entries | Research only; state-only integration may need no JS plugin |
 | [OpenCode MCP](https://docs.opencode.ai/docs/mcp-servers/) | Native `mcp` config uses `type: remote`; host handles OAuth | Research only; no universal manifest claimed |
+| [Google Antigravity plugins](https://antigravity.google/docs/plugins/) | Native `plugin.json`, `mcp_config.json`, and `skills/`; remote MCP uses `serverUrl` | Local adapter and package build implemented; app/CLI OAuth and Marketplace acceptance not verified |
+
+Antigravity documents app/CLI plugin list synchronization and GitHub/local folder installation. Synchronization between app and CLI is not the same as automatic upstream updates; its public plugin docs do not promise that a GitHub installation polls for repository releases. Follow the host's update flow and verify the installed plugin version after packaging a new release. Official Marketplace inclusion requires a separate submission/interest process.
 
 Codex standalone [MCP documentation](https://developers.openai.com/codex/mcp) documents OAuth and `bearer_token_env_var`. Portable transport names differ from native Codex/Claude JSON `http` and OpenCode `remote`. Root portable manifests do not declare native `skills` or `mcpServers` path fields.
 

@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "statedock": {
+      "serverUrl": "https://statedock.dev/mcp"
+    }
+  }
+}

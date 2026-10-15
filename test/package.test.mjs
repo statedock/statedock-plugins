@@ -74,3 +74,19 @@ test('Harness Bundle packages shared Skills with optional MCP disabled and no ho
   assert.equal(manifest.scripts, undefined, 'No install lifecycle scripts');
   for (const name of ['statedock-plan', 'statedock-pickup', 'statedock-update']) assert.equal(await readFile(join(target, 'package/skills', name, 'SKILL.md'), 'utf8'), await readFile(join(root, 'core/skills', name, 'SKILL.md'), 'utf8'));
 });
+test('Antigravity package uses its native manifest and remote MCP schema while bundling shared Skills', async () => {
+  assert.equal(await (await import('../scripts/validate-antigravity.mjs')).validateAntigravity(), true);
+  const plugin = execFileSync(process.execPath, [join(root, 'scripts/build-antigravity.mjs')], { encoding: 'utf8' }).trim();
+  const manifest = JSON.parse(await readFile(join(plugin, 'plugin.json'), 'utf8'));
+  assert.equal(manifest.name, 'statedock');
+  const mcp = JSON.parse(await readFile(join(plugin, 'mcp_config.json'), 'utf8'));
+  assert.deepEqual(mcp, { mcpServers: { statedock: { serverUrl: 'https://statedock.dev/mcp' } } });
+  for (const name of ['statedock-plan', 'statedock-pickup', 'statedock-update']) assert.equal(await readFile(join(plugin, 'skills', name, 'SKILL.md'), 'utf8'), await readFile(join(root, 'core/skills', name, 'SKILL.md'), 'utf8'));
+  const archive = execFileSync(process.execPath, [join(root, 'scripts/pack-antigravity.mjs')], { encoding: 'utf8' }).trim();
+  const entries = execFileSync('unzip', ['-Z1', archive], { encoding: 'utf8' }).trim().split('\n').sort();
+  assert.deepEqual(entries, ['LICENSE', 'README.md', 'mcp_config.json', 'plugin.json', ...['statedock-pickup', 'statedock-plan', 'statedock-update'].map(name => `skills/${name}/SKILL.md`)].sort());
+  const target = await mkdtemp(join(tmpdir(), 'statedock-antigravity-unpack-'));
+  execFileSync('unzip', ['-q', archive, '-d', target]);
+  assert.equal(await (await import('../scripts/validate-antigravity.mjs')).validateAntigravity(target), true);
+  assert.equal((await readFile(`${archive}.sha256`, 'utf8')).split(' ')[0], createHash('sha256').update(await readFile(archive)).digest('hex'));
+});

@@ -100,6 +100,7 @@ The root `.cursor-plugin/marketplace.json` exposes the same portable plugin in `
 | Claude Code | Native plugin manifest and MCP configuration | Research only; adapter not implemented |
 | DeepSeek Harness 0.2.0-rc.2 | Native Cordis Bundle + shared Skills; optional native MCP | Actual isolated CLI installation, native Skill discovery and read-only Remote MCP bridge checks; desktop GUI/model acceptance pending |
 | OpenCode | Native MCP configuration and Skills; JS plugin only if needed | Research only; adapter not implemented |
+| Google Antigravity | Native plugin with `plugin.json`, `mcp_config.json` and shared Skills | Local adapter implemented; host authentication and Marketplace acceptance not verified |
 
 Portable format compatibility is not a guarantee of installation, authentication, or workflow behavior on every client. [Official sources and platform acceptance gates](docs/platforms.md) distinguish documented capabilities from actual tests. The [DeepSeek Harness adapter](adapters/deepseek-harness/README.md) has build and verification instructions. Other adapter directories remain research notes.
 
@@ -124,13 +125,14 @@ npm run verify:endpoint
 ```
 
 - `validate` checks vendored official JSON Schemas, Skill metadata, the expected endpoint, package inventory and likely credentials.
+- `validate:antigravity` checks the native Antigravity manifest, remote MCP endpoint and shared Skill inventory; `build:antigravity` creates an installable folder and `pack:antigravity` creates a ZIP with SHA-256. These do not publish or submit to Google's Marketplace.
 - `test` exercises invalid manifests, native/portable transport confusion, credentials, wrong endpoints, symlinks, unexpected runtime files and archive integrity.
 - `build` prints a fresh `dist/build-*/statedock` folder. Each build preserves existing output.
 - `pack` writes a `.tgz` and SHA-256 file to `artifacts/`. Extract it before using a folder-based installer. It is not a Codex ZIP upload or an npm publication.
 - `verify:codex` installs into a temporary Codex home and validates cached contents without changing your normal configuration or credentials.
 - `verify:endpoint` probes public OAuth discovery only; it does not exercise authenticated operations.
 
-Generated packages include two manifests, three Skills, the brand logo, LICENSE and README. `pack:zip` creates a ZIP with the plugin files at the archive root for OpenAI upload. Build dependencies, configuration templates, server code and credentials are excluded. These scripts never push, deploy or publish.
+Generated core packages include two manifests, three Skills, the brand logo, LICENSE and README. `pack:zip` creates a ZIP with the plugin files at the archive root for OpenAI upload. The separate Antigravity adapter contains its native manifest, MCP configuration, three Skills, LICENSE and platform README. Build dependencies, configuration templates, server code and credentials are excluded. These scripts never push, deploy or publish.
 
 ```text
 core/                 Shared portable manifests and Skills
@@ -138,6 +140,7 @@ core/                 Shared portable manifests and Skills
 .cursor-plugin/       Cursor repository marketplace
 core/assets/          Shared publisher brand logo
 adapters/             Harness Bundle sources and other platform research
+adapters/antigravity/ Google Antigravity native plugin source and setup guide
 schemas/              Official Agent Plugins 1.0.0 schema snapshots
 templates/            Standalone secure connection examples
 scripts/              Validation, build, packaging and integration checks

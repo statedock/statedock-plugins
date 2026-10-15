@@ -16,7 +16,10 @@
     "verify:endpoint": "node scripts/verify-endpoint.mjs",
     "pack:zip": "node scripts/pack-zip.mjs",
     "build:harness": "node scripts/build-harness.mjs",
-    "verify:harness": "node scripts/verify-harness.mjs"
+    "verify:harness": "node scripts/verify-harness.mjs",
+    "build:antigravity": "node scripts/build-antigravity.mjs",
+    "validate:antigravity": "node scripts/validate-antigravity.mjs",
+    "pack:antigravity": "node scripts/pack-antigravity.mjs"
   },
   "devDependencies": {
     "ajv": "8.20.0",
