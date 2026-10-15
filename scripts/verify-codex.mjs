@@ -21,7 +21,7 @@ const installed = run(['plugin', 'add', 'statedock@statedock-local', '--json']);
 const listing = run(['plugin', 'list', '--json']);
 const state = JSON.parse(listing).installed.find(item => item.pluginId === 'statedock@statedock-local');
 assert.ok(state?.installed && state.enabled, 'Plugin must be installed and enabled');
-assert.equal(state.version, '0.1.0');
+assert.equal(state.version, '0.1.1');
 const manifests = (await files(home)).filter(path => path.endsWith('/plugin.json'));
 const cached = manifests.find(path => !path.includes('/marketplaces/'));
 assert.ok(cached, 'Installed cached plugin manifest must exist');

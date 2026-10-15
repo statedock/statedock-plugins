@@ -6,7 +6,7 @@ The portable manifest includes OpenAI listing metadata and icon paths under exte
 
 ## Current submission status
 
-The maintainer uploaded version 0.1.0, completed the review information and confirmed submission to OpenAI on 2026-10-15. The app is awaiting OpenAI review; submission does not mean approval or publication.
+The maintainer uploaded version 0.1.0, completed the review information and confirmed submission to OpenAI on 2026-10-15. The app is awaiting OpenAI review; submission does not mean approval or publication. Version 0.1.1 includes the structured Code Reference handoff updates and is packaged locally, but has not been uploaded or submitted.
 
 The listing links to the public [privacy policy](https://statedock.dev/privacy) and [terms](https://statedock.dev/terms). The portal's metadata, Skills, and MCP checks reported no findings before submission. The maintainer supplied a video walkthrough and saved positive and negative review cases in the portal.
 

@@ -11,7 +11,7 @@
       "name": "statedock",
       "source": "core",
       "description": "Save plans, restore task context and record progress through StateDock Remote MCP.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "homepage": "https://statedock.dev",
       "repository": "https://github.com/statedock/statedock-plugins",
       "license": "MIT",

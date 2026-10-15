@@ -16,7 +16,9 @@ Read-only inspection of the existing StateDock repository confirmed that the onl
 | update_plan | reference, body/summary/status | record authorized changes |
 | claim_next_task | project, mode: mine or authorized unassigned | atomically claim one READY; result `{claimed, plan?}` |
 | pause_task | reference, reason | WAITING; configured server notifications may fire |
-| submit_handoff | reference, changes, verification, nextSteps | summary and DONE |
+| submit_handoff | reference, changes, verification, nextSteps, optional codeReference | summary and DONE; stores codeReference separately when supplied |
+
+`codeReference` contains a full Git commit SHA, branch (nullable for detached HEAD), `workingTree: clean | dirty`, and optional repository identifier and credential-free HTTPS commit or pull-request URL. Omit it when no Git repository is available. A dirty state makes clear that HEAD may not include all work; this is a locator, not verification or independent review evidence.
 
 These are source/schema evidence, not proof that a particular authenticated remote deployment exposes them. Skills must inspect live schemas and stop when required tools are missing. Host tool prefixes are not fixed.
 

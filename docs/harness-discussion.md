@@ -21,7 +21,7 @@ The goal is to keep the task, decisions and handoff available when you switch to
 
 ### Install and connect
 
-Version **0.1.0** targets **Harness 0.2.0-rc.2**; compatibility with other host versions has not been verified.
+Version **0.1.0** is the published package for **Harness 0.2.0-rc.2**. Version **0.1.1** updates the shared handoff Skill and is prepared locally but not published; compatibility with other host versions has not been verified.
 
 ```sh
 dsh plugin --profile web add @statedock/dsh-plugin@0.1.0
