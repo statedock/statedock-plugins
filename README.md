@@ -51,6 +51,18 @@ CODEX_BIN="/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/C
 
 That app path is installation-specific. See [installation details](docs/install.md) for manual marketplace configuration and standalone MCP alternatives. This repository has not been published to a public plugin marketplace.
 
+### Codex authentication
+
+The plugin's bundled Remote MCP connection uses the host's OAuth flow by default. Install the plugin, authorize StateDock when Codex prompts you, then start a new chat. Do not replace this with a second connection unless you intentionally want a separate token-based setup.
+
+For a standalone Codex MCP connection using a StateDock token, Codex can add the bearer scheme for you. Set the environment variable securely and configure its **name**, not the token itself:
+
+```sh
+codex mcp add statedock --url https://statedock.dev/mcp --bearer-token-env-var STATEDOCK_TOKEN
+```
+
+Set `STATEDOCK_TOKEN` in the host's secure environment before connecting; keep its value as the raw token without the `Bearer ` prefix. The resulting request header is `Authorization: Bearer <token>`. In a Codex connection screen, the **Bearer token env var** field takes `STATEDOCK_TOKEN` (the variable name), not `Authorization` and not the token value. If the host instead provides generic custom-header fields, use **Key** `Authorization` and **Value** `Bearer <token>`. Never commit a real token or paste one into shared files. OAuth and a manually configured bearer token are alternative authentication methods.
+
 ## Authenticate and check the connection
 
 The bundled server configuration is:
@@ -80,6 +92,61 @@ Then confirm the project UUID and its repository path. For READY pickup, the cre
 
 Never commit tokens or send them in chat. OAuth credentials stay in the host. For a separate standalone Codex connection, [configuration templates](templates/) show OAuth or a securely supplied environment variable. Avoid configuring duplicate StateDock connections; inspect each connection's instance information before use.
 
+## Platform introductions and installation
+
+StateDock provides the same three workflows on hosts that support the shared Agent Plugins package: save a deferred plan, restore task context, and record progress or a verified handoff. The integration stores and restores task state; it does not run code, launch agents, schedule work, or orchestrate agents. Installability and review status differ by platform:
+
+| Platform | What the integration provides | Current distribution and install path |
+| --- | --- | --- |
+| **Codex** | Shared plan, pickup, and update Skills plus StateDock Remote MCP. | Install from this repository's local marketplace using the commands above. This has been verified in an isolated Codex CLI profile. It is not a public Codex Marketplace listing. |
+| **ChatGPT app** | The same shared Skills and authenticated StateDock MCP connection. | Version 0.1.0 is submitted for review. It will be discoverable in the ChatGPT plugin directory after approval and publication; 0.1.1 is prepared locally but has not been resubmitted. |
+| **Cursor** | The shared Agent Plugins package, with no Cursor-specific service code. | Repository marketplace metadata and local-test instructions are present. A real Cursor install and Marketplace listing still need verification; see the [Cursor guide](adapters/cursor/README.md) and [submission notes](docs/cursor-submission.md). |
+| **DeepSeek Harness** | Native Cordis Bundle containing the shared Skills; an optional MCP component can connect to StateDock when explicitly enabled. | `@statedock/dsh-plugin@0.1.0` is published on npm. Install with `dsh plugin --profile web add @statedock/dsh-plugin@0.1.0` or use `--profile desktop`. See the [Harness guide](adapters/deepseek-harness/README.md). |
+| **Google Antigravity** | Native plugin manifest and remote MCP configuration, packaged with the shared Skills. | The adapter is in this repository at `adapters/antigravity/`. Build and install it locally as described below. Marketplace inclusion requires Google's separate review. |
+| **Claude Code** | Planned native manifest and MCP configuration around the shared Skills. | Research notes only; there is no installable Claude Code package yet. |
+| **OpenCode** | Planned native MCP connection and shared Skills. | Research notes only; there is no installable OpenCode package yet. |
+
+### Google Antigravity
+
+The Antigravity adapter's **About** copy is: “Save plans, restore task context, and record progress with StateDock.” **Language: English** (plugin description, README, and bundled Skill instructions). Google’s documented `plugin.json` schema accepts the plugin name and description and rejects extra fields, so language belongs in the About/listing text rather than the manifest.
+
+To build an installable plugin folder and ZIP from the repository root:
+
+```sh
+npm ci --ignore-scripts
+npm run build:antigravity
+npm run pack:antigravity
+```
+
+The build prints the plugin folder under `dist/antigravity-*/statedock`; the ZIP and SHA-256 file are written under `artifacts/`. In Antigravity CLI, install the folder printed by the build:
+
+```sh
+agy plugin install /absolute/path/to/dist/antigravity-.../statedock
+agy plugin list
+```
+
+Or start the interactive CLI and use `/plugin`, then choose **Install from local directory**. For a workspace-scoped manual install, copy the built `statedock` folder to `<workspace>/.agents/plugins/`; for all workspaces, use `~/.gemini/config/plugins/`. In the Antigravity app, open **Customizations → Installed** to review the installed plugin. These local installation routes are documented by Google; they do not mean the plugin is already listed in Google's Marketplace. See the [Antigravity adapter guide](adapters/antigravity/README.md).
+
+The plugin connects to `https://statedock.dev/mcp`. Complete the host's supported authentication flow, then verify `get_instance_info` reports `publicOrigin=https://statedock.dev`, `mcpUrl=https://statedock.dev/mcp`, and remote transport before using StateDock task workflows. Do not add a token to `mcp_config.json`.
+
+### DeepSeek Harness
+
+The Harness adapter exposes StateDock's shared planning, context pickup, and progress handoff Skills. Its optional native MCP component is disabled by default so it does not create a duplicate connection when Harness already has an authenticated StateDock server. Install the published package with:
+
+```sh
+dsh plugin --profile web add @statedock/dsh-plugin@0.1.0
+# Or install into the desktop profile:
+dsh plugin --profile desktop add @statedock/dsh-plugin@0.1.0
+```
+
+The local 0.1.1 package is not yet published. See the [Harness adapter guide](adapters/deepseek-harness/README.md) for authentication, optional MCP setup, and verification.
+
+### ChatGPT app and Cursor
+
+The ChatGPT app package is awaiting review; users cannot install it from the public directory until OpenAI approves and it is published. Cursor's repository marketplace metadata is included, but we do not claim a completed marketplace listing or a verified Cursor install. Follow the platform submission notes linked above for current gates.
+
+Claude Code and OpenCode currently have research notes only. Do not use their adapter directories as install packages yet.
+
 ## Cursor Marketplace application
 
 The root `.cursor-plugin/marketplace.json` exposes the same portable plugin in `core/` for repository discovery. A brand logo is committed under `core/assets/`. See [submission fields and remaining acceptance checks](docs/cursor-submission.md). Marketplace materials are being prepared; actual Cursor installation and marketplace approval are not yet verified.
@@ -91,18 +158,7 @@ The root `.cursor-plugin/marketplace.json` exposes the same portable plugin in `
 - **Codex:** installable from this GitHub repository as a local marketplace. This is not a Codex Marketplace listing.
 - **Cursor:** Marketplace submission materials are in preparation; installation and approval remain unverified.
 
-## Platform status
-
-| Platform | Format / approach | Verified here |
-| --- | --- | --- |
-| Codex | Agent Plugins 1.0.0 + local marketplace | Isolated CLI installation, normal installed/enabled state, three Skills discovered; authenticated remote instance calls |
-| Cursor | Officially accepts Agent Plugins 1.0.0 | Format researched; installation and OAuth not tested |
-| Claude Code | Native plugin manifest and MCP configuration | Research only; adapter not implemented |
-| DeepSeek Harness 0.2.0-rc.2 | Native Cordis Bundle + shared Skills; optional native MCP | Actual isolated CLI installation, native Skill discovery and read-only Remote MCP bridge checks; desktop GUI/model acceptance pending |
-| OpenCode | Native MCP configuration and Skills; JS plugin only if needed | Research only; adapter not implemented |
-| Google Antigravity | Native plugin with `plugin.json`, `mcp_config.json` and shared Skills | Local adapter implemented; host authentication and Marketplace acceptance not verified |
-
-Portable format compatibility is not a guarantee of installation, authentication, or workflow behavior on every client. [Official sources and platform acceptance gates](docs/platforms.md) distinguish documented capabilities from actual tests. The [DeepSeek Harness adapter](adapters/deepseek-harness/README.md) has build and verification instructions. Other adapter directories remain research notes.
+Portable format compatibility is not a guarantee of installation, authentication, or workflow behavior on every client. [Official sources and platform acceptance gates](docs/platforms.md) distinguish documented capabilities from actual tests.
 
 ## Develop and package
 
