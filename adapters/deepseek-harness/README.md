@@ -13,11 +13,11 @@ npm ci --ignore-scripts
 npm run build:harness
 ```
 
-The output gives a package directory and `statedock-dsh-plugin-0.1.0.tgz`. Shared Skills and the logo are copied during build; edit `core/` rather than generated files. No registry publication occurs.
+The output gives a package directory and `statedock-dsh-plugin-0.1.1.tgz`. Shared Skills and the logo are copied during build; edit `core/` rather than generated files. No registry publication occurs.
 
 ## Install from npm
 
-Published publicly as `@statedock/dsh-plugin@0.1.0`. On 2026-10-14, the official npm registry returned the released version and an isolated Harness CLI profile successfully installed it from the registry.
+Published publicly as `@statedock/dsh-plugin@0.1.0`. The updated 0.1.1 package is prepared locally but is not published. On 2026-10-14, the official npm registry returned the released version and an isolated Harness CLI profile successfully installed it from the registry.
 
 ```sh
 dsh plugin --profile web add @statedock/dsh-plugin@0.1.0

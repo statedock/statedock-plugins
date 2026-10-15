@@ -1,6 +1,6 @@
 {
   "name": "@statedock/dsh-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "StateDock shared plan, pickup and update Skills with optional Remote MCP connection.",
   "license": "MIT",

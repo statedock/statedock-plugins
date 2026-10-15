@@ -4,7 +4,7 @@
 
 Shared Skills and lightweight plugin packages for [StateDock](https://statedock.dev): save a plan, restore task context, and record progress across coding tools. All packages connect to the existing StateDock Remote MCP service. This repository contains client instructions and packaging only.
 
-> Version 0.1.0 is an early release. Codex local marketplace installation and authenticated remote connectivity have been verified. The DeepSeek Harness package is published on npm and its official community showcase is live. The ChatGPT app has been submitted for review; Cursor Marketplace materials are being prepared.
+> Version 0.1.1 adds structured Git Code Reference guidance to task pickup and completion. Codex local marketplace installation and authenticated remote connectivity have been verified. DeepSeek Harness and ChatGPT distributions at 0.1.0 remain the published/submitted versions; updated 0.1.1 packages are prepared locally and have not been published or resubmitted.
 
 ## What you can do
 
@@ -86,8 +86,8 @@ The root `.cursor-plugin/marketplace.json` exposes the same portable plugin in `
 
 ## Published and submitted listings
 
-- **DeepSeek Harness:** [`@statedock/dsh-plugin`](https://www.npmjs.com/package/@statedock/dsh-plugin) is published for Harness `0.2.0-rc.2`. The project is introduced in the [official Show Your Plugins discussion](https://github.com/deepseek-ai/deepseek-harness/discussions/9776). A curated-directory contribution is prepared and will be submitted after its repository-age requirement is met.
-- **ChatGPT app:** submitted to OpenAI for review; approval and publication are pending.
+- **DeepSeek Harness:** [`@statedock/dsh-plugin`](https://www.npmjs.com/package/@statedock/dsh-plugin) `0.1.0` is published for Harness `0.2.0-rc.2`; updated `0.1.1` is prepared locally but not published. The project is introduced in the [official Show Your Plugins discussion](https://github.com/deepseek-ai/deepseek-harness/discussions/9776). A curated-directory contribution is prepared and will be submitted after its repository-age requirement is met.
+- **ChatGPT app:** version `0.1.0` is submitted to OpenAI for review; updated `0.1.1` package materials are prepared locally but not resubmitted. Approval and publication are pending.
 - **Codex:** installable from this GitHub repository as a local marketplace. This is not a Codex Marketplace listing.
 - **Cursor:** Marketplace submission materials are in preparation; installation and approval remain unverified.
 
