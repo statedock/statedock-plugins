@@ -31,7 +31,9 @@
           "Save a deferred plan for this project without starting it.",
           "Restore the context of an existing task without changing its status.",
           "Record my verified results as a task handoff."
-        ]
+        ],
+        "privacyPolicyURL": "https://statedock.dev/privacy",
+        "termsOfServiceURL": "https://statedock.dev/terms"
       }
     }
   }

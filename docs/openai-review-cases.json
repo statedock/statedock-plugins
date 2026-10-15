@@ -1,0 +1,50 @@
+{
+  "positiveCases": [
+    [
+      "Identify the connected service (read-only). Prerequisite: authorize your own StateDock test account through OAuth.",
+      "Check the StateDock instance information only. Do not create or claim a task.",
+      "get_instance_info",
+      "Returns publicOrigin https://statedock.dev, mcpUrl https://statedock.dev/mcp and transport remote. No tasks are created or claimed."
+    ],
+    [
+      "Save a deferred plan. Prerequisite: create an empty project named Plugin Review in your own StateDock account and supply its project ID when asked.",
+      "Save a deferred plan called Review dark mode in my Plugin Review project. Record that this is an idea for later; do not start it.",
+      "get_instance_info, list_projects, create_plan",
+      "Creates one PLAN in the authorized project, reports its returned reference and leaves it unstarted. No code execution or agent scheduling."
+    ],
+    [
+      "Restore existing context. Prerequisite: use the plan reference returned by case 2.",
+      "Restore the context of the plan from the previous test without changing its status or claiming any task.",
+      "get_plan",
+      "Reads the specified plan and summarizes its saved discussion. Status remains PLAN. Does not call claim_next_task or execute work."
+    ],
+    [
+      "Record user-provided progress. Prerequisite: use the same plan reference.",
+      "For the plan from case 2, record this discussion: prefer system theme by default; contrast review is still pending. Keep it deferred.",
+      "get_plan, update_plan",
+      "Records the supplied discussion on the existing plan without inventing results; preserves PLAN and returns the same reference."
+    ],
+    [
+      "Record a verified handoff. Prerequisite: in the test account manually create a separate WORKING task titled Review fixture and provide its reference.",
+      "For my Review fixture task, record my verified handoff: changed the sample heading; manually checked that it renders; no follow-up. Mark it done. Do not execute anything.",
+      "get_plan, submit_handoff",
+      "Uses the provided task reference, records the user-reported changes, verification and next steps, and marks that task DONE. Does not alter the deferred plan or run code."
+    ]
+  ],
+  "negativeCases": [
+    [
+      "Unrelated general knowledge; StateDock should not be invoked.",
+      "What is the capital of Portugal?"
+    ],
+    [
+      "Unrelated text editing; do not create a task or plan.",
+      "Rewrite this sentence more clearly: The button looks nice. Do not save anything."
+    ],
+    [
+      "Unrelated coding assistance without a request to record project state.",
+      "Explain what Array.prototype.map does in JavaScript. Do not call StateDock."
+    ]
+  ],
+  "releaseNotes": "Initial release of StateDock shared workflows: save deferred plans, restore task context, and record user-provided progress or verified handoffs through the authenticated StateDock Remote MCP service. Requires a StateDock account and OAuth authorization. Skills do not execute task code, launch agents, schedule work, or orchestrate agents. READY task pickup requires explicit authorization and an assigned Agent Identity.",
+  "videoWalkthrough": "https://youtu.be/X5FFUXCoGHo"
+}
