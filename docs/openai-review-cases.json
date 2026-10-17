@@ -21,7 +21,7 @@
     [
       "Record user-provided progress. Prerequisite: use the same plan reference.",
       "For the plan from case 2, record this discussion: prefer system theme by default; contrast review is still pending. Keep it deferred.",
-      "get_plan, update_plan",
+      "get_plan, add_note",
       "Records the supplied discussion on the existing plan without inventing results; preserves PLAN and returns the same reference."
     ],
     [

@@ -13,7 +13,8 @@ Read-only inspection of the existing StateDock repository confirmed that the onl
 | get_project / resume_project | project UUID | project binding / context |
 | get_plan | reference | existing task |
 | create_plan | project, title, body, status: PLAN | save deferred idea |
-| update_plan | reference, body/summary/status | record authorized changes |
+| add_note | reference, note | append a note to the task's activity; agents record discussion and decisions this way |
+| update_plan | reference, status: WORKING | an agent can only resume a task; the server refuses edits to title, body and summary and other statuses with `forbidden` |
 | claim_next_task | project, mode: mine or authorized unassigned | atomically claim one READY; result `{claimed, plan?}` |
 | pause_task | reference, reason | WAITING; configured server notifications may fire |
 | submit_handoff | reference, changes, verification, nextSteps, optional codeReference | summary and DONE; stores codeReference separately when supplied |
